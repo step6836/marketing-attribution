@@ -1,0 +1,24 @@
+```
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.Python
+*.log
+
+# Node
+node_modules/
+dashboard/build/
+dashboard/.env
+
+# Data files (large CSV)
+analysis/data/2019-Nov.csv
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp

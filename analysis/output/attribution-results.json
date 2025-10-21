@@ -1,0 +1,70 @@
+{
+  "meta": {
+    "total_events": 67500000,
+    "total_users": 3700000,
+    "total_sessions": 13800000,
+    "analysis_sample": 4617,
+    "bot_filtered": true
+  },
+  "attribution_models": {
+    "first_touch": {
+      "view": 99.82434776634389,
+      "cart": 0.0,
+      "purchase": 0.17565223365611146
+    },
+    "last_touch": {
+      "view": 34.358452614247234,
+      "cart": 65.53210330924148,
+      "purchase": 0.10944407651127992
+    },
+    "linear": {
+      "view": 75.96692184319188,
+      "cart": 23.88782114884049,
+      "purchase": 0.1452570079676291
+    },
+    "shapley": {
+      "view": 68.77225691919287,
+      "cart": 31.227743080807137,
+      "purchase": 0.0
+    },
+    "markov": {
+      "view": 0.0,
+      "cart": 100.0,
+      "purchase": 0.0
+    }
+  },
+  "journey_stats": {
+    "avg_touchpoints": 61.725579380550144,
+    "avg_days": 8.322720381199913,
+    "total_journeys_analyzed": 4617,
+    "conversion_rate": 11.9,
+    "cart_abandonment_rate": 71.8
+  },
+  "model_comparison": {
+    "first_touch": {
+      "accuracy": 3,
+      "fairness": 2,
+      "business_value": 4
+    },
+    "last_touch": {
+      "accuracy": 3,
+      "fairness": 2,
+      "business_value": 4
+    },
+    "linear": {
+      "accuracy": 5,
+      "fairness": 6,
+      "business_value": 6
+    },
+    "shapley": {
+      "accuracy": 8,
+      "fairness": 9,
+      "business_value": 8
+    },
+    "markov": {
+      "accuracy": 9,
+      "fairness": 8,
+      "business_value": 9
+    }
+  }
+}
