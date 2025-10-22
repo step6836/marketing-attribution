@@ -288,12 +288,12 @@ python attribution.py
 
 **Expected Output:**
 ```
-=== ATTRIBUTION MODELS ===
+ATTRIBUTION MODELS
 Analyzed 1000 purchase journeys
 Avg journey: 61.7 touchpoints over 8.3 days
 Total revenue: $22,687.59
 
-=== ATTRIBUTION MODEL COMPARISON ===
+ATTRIBUTION MODEL COMPARISON
 First-Touch: View 99.8%, Cart 0.0%
 Shapley: View 68.8%, Cart 31.2%
 Markov: View 0.0%, Cart 100.0%
@@ -463,17 +463,17 @@ This project is neither. It's an **end-to-end data product** that solves a real 
 
 ### Skills Demonstrated
 
-** Advanced Mathematics**
+**Advanced Mathematics**
 - Game theory (Shapley values with combinatorial optimization)
 - Probabilistic modeling (Markov chains with transition matrices)
 - Statistical rigor (handling 67M events with proper sampling techniques)
 
-** Software Engineering**
+**Software Engineering**
 - Architecture decisions: Chose batch processing over real-time based on computational constraints
 - Memory efficiency: Processed 67M events without crashing (peak 8GB)
 - Production thinking: JSON caching, error handling, scalable design patterns
 
-** Business Translation**
+**Business Translation**
 - Turned abstract math into specific dollar recommendations ($250K reallocation → $4M return)
 - Presented technical analysis in executive-friendly format (interactive dashboard, not Jupyter notebooks)
 - Resolved stakeholder conflicts with data instead of picking sides
