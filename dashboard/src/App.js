@@ -28,12 +28,12 @@ export default function AttributionDashboard() {
         return response.json();
       })
       .then(data => {
-        console.log('✅ Data loaded successfully:', data);
+        console.log(' Data loaded successfully:', data);
         setAnalysisData(data);
         setLoading(false);
       })
       .catch(err => {
-        console.error('❌ Error loading data:', err);
+        console.error(' Error loading data:', err);
         setError(err.message);
         setLoading(false);
       });
