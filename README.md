@@ -55,7 +55,7 @@ This project demonstrates:
 
 ## Dashboard Demo
 
-! [Dashboard Demo] (dashb.gif)
+![Dashboard Demo](dashb.gif)
 
 *Interactive dashboard showing attribution model comparison, budget allocation simulator, and customer journey funnel visualization*
 
