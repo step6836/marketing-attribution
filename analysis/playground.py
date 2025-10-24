@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 
-# ===== DATA LOADING & CLEANING =====
 # Load and clean bot data (silent processing)
 df = pd.read_csv('data/2019-Nov.csv')
 sessions_per_user = df.groupby('user_id')['user_session'].nunique()
@@ -17,7 +16,7 @@ df_clean = df.merge(user_flags_df, on='user_id', how='left')
 df_clean = df_clean[df_clean['bot_flag'] != 'bot']
 df_clean['event_time'] = pd.to_datetime(df_clean['event_time'])
 
-# ===== ATTRIBUTION ANALYSIS =====
+# ATTRIBUTION ANALYSIS
 print("=== ATTRIBUTION MODELS ===")
 
 # Build purchase journey dataset
@@ -51,7 +50,7 @@ print(f"Analyzed {len(attribution_df)} purchase journeys")
 print(f"Avg journey: {attribution_df['journey_length'].mean():.1f} touchpoints over {attribution_df['journey_days'].mean():.1f} days")
 print(f"Total revenue: ${attribution_df['purchase_value'].sum():,.2f}")
 
-# ===== FIRST-TOUCH vs LAST-TOUCH ATTRIBUTION =====
+#FIRST-TOUCH vs LAST-TOUCH ATTRIBUTION
 first_touch_revenue = attribution_df.groupby('first_touch_type')['purchase_value'].sum()
 last_touch_revenue = attribution_df.groupby('last_touch_type')['purchase_value'].sum()
 
@@ -59,7 +58,7 @@ print("\n=== FIRST-TOUCH vs LAST-TOUCH ===")
 print("First-touch attribution:", first_touch_revenue.round(2))
 print("Last-touch attribution:", last_touch_revenue.round(2))
 
-# ===== LINEAR ATTRIBUTION =====
+# LINEAR ATTRIBUTION
 print("\n=== LINEAR ATTRIBUTION ===")
 
 linear_attribution_data = []
@@ -85,7 +84,7 @@ for _, row in attribution_df.iterrows():
 linear_df = pd.DataFrame(linear_attribution_data)
 linear_revenue = linear_df.groupby('touchpoint_type')['attributed_revenue'].sum()
 
-# ===== ATTRIBUTION COMPARISON =====
+# ATTRIBUTION COMPARISON 
 attribution_comparison = pd.DataFrame({
     'First_Touch': first_touch_revenue,
     'Last_Touch': last_touch_revenue, 
@@ -106,7 +105,7 @@ for model in ['Last_Touch', 'Linear']:
 print("\nPercentage differences from First-Touch:")
 print(attribution_comparison[['First_Touch', 'Last_Touch_vs_First_%', 'Linear_vs_First_%']])
 
-# ===== SHAPLEY VALUE ATTRIBUTION =====
+# SHAPLEY VALUE ATTRIBUTION
 print("\n=== SHAPLEY VALUE ATTRIBUTION ===")
 
 from itertools import combinations, permutations
@@ -201,7 +200,7 @@ shapley_revenue = shapley_df.groupby('touchpoint_type')['shapley_value'].sum()
 print("Shapley Value Attribution:")
 print(shapley_revenue.round(2))
 
-# ===== MARKOV CHAIN ATTRIBUTION =====
+# MARKOV CHAIN ATTRIBUTION 
 print("\n=== MARKOV CHAIN ATTRIBUTION ===")
 
 from collections import defaultdict, Counter
@@ -365,7 +364,7 @@ if total_attribution > 0:
 else:
     print("Need to debug Markov calculation...")
 
-# ===== DEFINE MARKOV REVENUE DICTIONARY =====
+# DEFINE MARKOV REVENUE DICTIONARY
 markov_revenue = {'view': 0.0, 'cart': 0.0, 'purchase': 0.0}
 
 # Update with actual values from valid attribution
@@ -375,7 +374,7 @@ if total_attribution > 0:
             revenue_share = (attribution / total_attribution) * sample_revenue
             markov_revenue[touchpoint] = revenue_share
 
-# ===== COMPLETE ATTRIBUTION MODEL COMPARISON =====
+# COMPLETE ATTRIBUTION MODEL COMPARISON 
 print("\n" + "="*60)
 print("COMPLETE ATTRIBUTION MODEL COMPARISON")
 print("="*60)
@@ -426,31 +425,31 @@ print("\n" + "="*60)
 print("KEY INSIGHTS")
 print("="*60)
 
-print("\n🎯 VIEW TOUCHPOINTS:")
+print("VIEW TOUCHPOINTS:")
 for model in comparison_models.columns:
     view_pct = percentage_comparison.loc['View', model]
     print(f"  {model}: {view_pct:.1f}% of revenue")
 
-print("\n🛒 CART TOUCHPOINTS:")
+print("CART TOUCHPOINTS:")
 for model in comparison_models.columns:
     cart_pct = percentage_comparison.loc['Cart', model]
     print(f"  {model}: {cart_pct:.1f}% of revenue")
 
-print("\n💰 BUSINESS RECOMMENDATIONS:")
+print("BUSINESS RECOMMENDATIONS:")
 print("First-Touch: 'Invest everything in awareness campaigns'")
 print("Last-Touch: 'Invest everything in cart recovery'") 
 print("Linear: 'Balanced investment across touchpoints'")
 print("Shapley: 'Views build foundation, cart adds value'")
 print("Markov: 'Cart interactions are conversion multipliers'")
 
-print(f"\n📊 MODEL SOPHISTICATION RANKING:")
+print(f"MODEL SOPHISTICATION RANKING:")
 print("1. Markov Chain (conversion probability impact)")
 print("2. Shapley Values (game theory fairness)")  
 print("3. Linear (equal credit)")
 print("4. First/Last Touch (single touchpoint bias)")
 
 # Show the revenue range
-print(f"\n💵 REVENUE ATTRIBUTION RANGE:")
+print(f"REVENUE ATTRIBUTION RANGE:")
 view_min = comparison_models.loc['View'].min()
 view_max = comparison_models.loc['View'].max()
 cart_min = comparison_models.loc['Cart'].min() 
@@ -460,7 +459,7 @@ print(f"View attribution: ${view_min:.2f} - ${view_max:.2f}")
 print(f"Cart attribution: ${cart_min:.2f} - ${cart_max:.2f}")
 print(f"Attribution variance: {((view_max-view_min)/view_max)*100:.1f}% for views")
 
-# ===== EXPORT RESULTS FOR DASHBOARD =====
+# EXPORT RESULTS FOR DASHBOARD 
 print("\n" + "="*60)
 print("EXPORTING RESULTS FOR DASHBOARD")
 print("="*60)
@@ -531,9 +530,9 @@ output_path = 'output\\attribution-results.json'
 with open(output_path, 'w') as f:
     json.dump(dashboard_export, f, indent=2)
 
-print(f"\n✅ SUCCESS: Results exported to {output_path}")
-print(f"📊 Attribution models: {len(dashboard_export['attribution_models'])}")
-print(f"📈 Journey stats: {len(dashboard_export['journey_stats'])} metrics")
-print(f"\n📋 Next step: Copy this file to your dashboard")
+print(f"Results exported to {output_path}")
+print(f"Attribution models: {len(dashboard_export['attribution_models'])}")
+print(f"Journey stats: {len(dashboard_export['journey_stats'])} metrics")
+print(f" Next step: Copy this file to your dashboard")
 print(f"   copy {output_path} ..\\dashboard\\public\\data\\attribution-results.json")
 
